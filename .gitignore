@@ -1,0 +1,13 @@
+# MkDocs build çıktısı
+site/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editör
+.DS_Store
+.idea/
+.vscode/

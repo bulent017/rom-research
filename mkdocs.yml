@@ -1,0 +1,82 @@
+site_name: MobileITM — AOSP / Custom ROM Araştırma Raporu
+site_description: >-
+  MobileITM için AOSP tabanlı özel Android işletim sistemi (custom ROM),
+  cihaz sıkılaştırma, kendi SDK/API katmanı, GMS/EDLA lisanslama, donanım
+  tedariki ve ürün senaryoları üzerine kapsamlı araştırma raporu.
+site_author: MobileITM
+site_url: https://bulent017.github.io/rom-research/
+repo_url: https://github.com/bulent017/rom-research
+repo_name: bulent017/rom-research
+
+theme:
+  name: material
+  language: tr
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Koyu temaya geç
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Açık temaya geç
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tooltips
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+plugins:
+  - search:
+      lang: tr
+
+nav:
+  - Genel Bakış: index.md
+  - 1. Proje Bağlamı ve Hedefler: 01-baglamm-ve-hedefler.md
+  - 2. Custom ROM Nedir, Nasıl Yapılır: 02-custom-rom-nasil-yapilir.md
+  - 3. Cihaz Sıkılaştırma Teknikleri: 03-sikilastirma.md
+  - 4. Kendi SDK / API Katmanı: 04-sdk-api-katmani.md
+  - 5. Lisanslama ve Ticari Engeller (GMS/EDLA): 05-lisanslama-gms-edla.md
+  - 6. Donanım ve Tedarik Yolları: 06-donanim-tedarik.md
+  - 7. Ürün Senaryoları: 07-urun-senaryolari.md
+  - 8. Bakım, Güvenlik Yamaları ve OTA: 08-bakim-ota.md
+  - 9. Değerlendirme ve Yol Haritası: 09-degerlendirme-yol-haritasi.md
+  - 10. Kaynakça: 10-kaynakca.md
