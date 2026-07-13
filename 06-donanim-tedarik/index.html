@@ -1,0 +1,1017 @@
+
+<!doctype html>
+<html lang="tr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="MobileITM için AOSP tabanlı özel Android işletim sistemi (custom ROM), cihaz sıkılaştırma, kendi SDK/API katmanı, GMS/EDLA lisanslama, donanım tedariki ve ürün senaryoları üzerine kapsamlı araştırma raporu.">
+      
+      
+        <meta name="author" content="MobileITM">
+      
+      
+        <link rel="canonical" href="https://bulent017.github.io/rom-research/06-donanim-tedarik/">
+      
+      
+        <link rel="prev" href="../05-lisanslama-gms-edla/">
+      
+      
+        <link rel="next" href="../07-urun-senaryolari/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>6. Donanım ve Tedarik Yolları - MobileITM — AOSP / Custom ROM Araştırma Raporu</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6-donanm-ve-tedarik-yollar" class="md-skip">
+          Ana içeriğe geç
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Başlık">
+    <a href=".." title="MobileITM — AOSP / Custom ROM Araştırma Raporu" class="md-header__button md-logo" aria-label="MobileITM — AOSP / Custom ROM Araştırma Raporu" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MobileITM — AOSP / Custom ROM Araştırma Raporu
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              6. Donanım ve Tedarik Yolları
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Koyu temaya geç"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Koyu temaya geç" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Açık temaya geç"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Açık temaya geç" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Ara" placeholder="Ara" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Ara">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Temizle" aria-label="Temizle" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Arama başlatılıyor
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bulent017/rom-research" title="Depoya git" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bulent017/rom-research
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigasyon" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MobileITM — AOSP / Custom ROM Araştırma Raporu" class="md-nav__button md-logo" aria-label="MobileITM — AOSP / Custom ROM Araştırma Raporu" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MobileITM — AOSP / Custom ROM Araştırma Raporu
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bulent017/rom-research" title="Depoya git" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bulent017/rom-research
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genel Bakış
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-baglamm-ve-hedefler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Proje Bağlamı ve Hedefler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-custom-rom-nasil-yapilir/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Custom ROM Nedir, Nasıl Yapılır
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-sikilastirma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Cihaz Sıkılaştırma Teknikleri
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-sdk-api-katmani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Kendi SDK / API Katmanı
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-lisanslama-gms-edla/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Lisanslama ve Ticari Engeller (GMS/EDLA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Donanım ve Tedarik Yolları
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Donanım ve Tedarik Yolları
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61-yol-a-odm-cihaz-signage-gomulu-icin-ideal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Yol A — ODM cihaz (signage / gömülü için ideal)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-yol-b-oem-ortaklg-kurumsal-telefon-icin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Yol B — OEM ortaklığı (kurumsal telefon için)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-yol-c-referans-cihaz-ar-ge-ve-dogrulama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Yol C — Referans cihaz (Ar-Ge ve doğrulama)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-yollarn-karslastrmas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Yolların karşılaştırması
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65-sonuc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Sonuç
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-urun-senaryolari/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Ürün Senaryoları
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-bakim-ota/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Bakım, Güvenlik Yamaları ve OTA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-degerlendirme-yol-haritasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Değerlendirme ve Yol Haritası
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-kaynakca/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Kaynakça
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="İçindekiler">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      İçindekiler
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61-yol-a-odm-cihaz-signage-gomulu-icin-ideal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Yol A — ODM cihaz (signage / gömülü için ideal)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-yol-b-oem-ortaklg-kurumsal-telefon-icin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Yol B — OEM ortaklığı (kurumsal telefon için)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-yol-c-referans-cihaz-ar-ge-ve-dogrulama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Yol C — Referans cihaz (Ar-Ge ve doğrulama)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-yollarn-karslastrmas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Yolların karşılaştırması
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65-sonuc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Sonuç
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="6-donanm-ve-tedarik-yollar">6. Donanım ve Tedarik Yolları<a class="headerlink" href="#6-donanm-ve-tedarik-yollar" title="Permanent link">&para;</a></h1>
+<div class="admonition danger">
+<p class="admonition-title">En büyük teknik engel: sürücüler (BSP)</p>
+<p>"Çok farklı telefon var, hepsine ROM yazamayız" sezgisi <strong>doğrudur</strong>. Sebep: Android'in
+üst katmanı (framework) açık kaynaktır ama <strong>donanımı çalıştıran katman değildir</strong>.
+Her cihaz için modem, GPU, kamera, NFC gibi bileşenlerin <strong>kapalı kaynak sürücü/firmware
+blob'ları</strong> ve cihaza özel çekirdek gerekir. Bunlar bir arada <strong>BSP (Board Support
+Package)</strong> olarak anılır. BSP olmadan cihaz düzgün çalışmaz; <strong>BSP yoksa maliyet fırlar.</strong>
+(<a href="https://emteria.com/blog/aosp-rom">emteria</a>)</p>
+</div>
+<p>Bu yüzden "her telefona ROM" ticari olarak çalışmaz. Üç geçerli tedarik yolu vardır.</p>
+<h2 id="61-yol-a-odm-cihaz-signage-gomulu-icin-ideal">6.1 Yol A — ODM cihaz (signage / gömülü için ideal)<a class="headerlink" href="#61-yol-a-odm-cihaz-signage-gomulu-icin-ideal" title="Permanent link">&para;</a></h2>
+<p><strong>ODM (Original Design Manufacturer):</strong> Sizin adınıza cihaz tasarlayıp üreten fabrika.
+Signage kutuları için <strong>Rockchip ekosistemi</strong> olgun bir tedarik zinciridir.</p>
+<ul>
+<li>Popüler yongalar: <strong>RK3566 / RK3568 / RK3588</strong> (4K/8K, Android 11–14, NPU, RTC, watchdog).</li>
+<li>Üreticiler beyaz etiketle (<strong>MobileITM markası</strong>) satar, <strong>BSP ve firmware
+  özelleştirmesini</strong> verir; bazıları ~500 adetlik siparişte firmware'i size göre uyarlar.</li>
+<li>Örnek tedarikçiler:
+  <a href="https://www.sunchip-tech.com/products/rk3568-android-board/">Sunchip RK3568/RK3588 kartları</a>,
+  <a href="https://aijourn.com/geniatech-introduces-rk3588-quad-display-signage-player/">Geniatech quad-display signage player</a>,
+  <a href="https://www.cnx-software.com/2025/12/05/rikomagic-ds08-rockchip-rk3588-powered-8k-digital-signage-player-with-rtc-and-watchdog/">Rikomagic DS08 (8K signage, RTC + watchdog)</a>,
+  <a href="https://www.ranboda.com/product-category/tv-box/rockchip-tv-box/">Ranboda Rockchip TV box</a>.</li>
+<li>Geliştirici kaynağı hazır: örn.
+  <a href="https://github.com/TinkerBoard-Android/rockchip-android-device-rockchip-rk3588">TinkerBoard RK3588 device tree</a>,
+  <a href="https://github.com/rockchip-linux/kernel">rockchip-linux/kernel</a>,
+  <a href="https://wiki.friendlyelec.com/wiki/index.php/FriendlyThings_for_Rockchip">FriendlyELEC FriendlyThings SDK</a>
+  (GPIO/UART/SPI/I2C erişimi için hazır Android SDK).</li>
+</ul>
+<div class="admonition success">
+<p class="admonition-title">Avantajı</p>
+<p>Donanım <strong>tek model</strong> ve <strong>sürücüler fabrikadan çalışır</strong> gelir. Sürücü/BSP sorumluluğu
+ODM'dedir; siz sadece üst katmanı (branding, kiosk, MDM, içerik) özelleştirirsiniz.
+Bu, en düşük teknik riskli yoldur.</p>
+</div>
+<h2 id="62-yol-b-oem-ortaklg-kurumsal-telefon-icin">6.2 Yol B — OEM ortaklığı (kurumsal telefon için)<a class="headerlink" href="#62-yol-b-oem-ortaklg-kurumsal-telefon-icin" title="Permanent link">&para;</a></h2>
+<p><strong>General Mobile modeli.</strong> Sertifikalı bir OEM ile anlaşırsınız; size cihazın tam <strong>BSP</strong>'sini
+verir. Farklar:</p>
+<ul>
+<li>İmzalama ya OEM anahtarlarıyla yapılır ya da anahtarlar <strong>size lisanslanır</strong> ("şifresini
+  de almış" denen şey budur).</li>
+<li>Cihazlar <strong>fabrikadan sizin ROM'unuzla ve kilitli bootloader'la</strong> çıkar → relock/anahtar
+  sorunu doğmaz.</li>
+<li>Müşteri <strong>GMS istiyorsa</strong> tek uygulanabilir yol budur (bkz. <a href="../05-lisanslama-gms-edla/">Bölüm 5</a>).</li>
+<li>Sürücü sorumluluğu OEM'de kalır.</li>
+</ul>
+<p>Google'ın kurumsal cihaz ekosistemi ve ortak listeleri:
+<a href="https://androidenterprisepartners.withgoogle.com/device-manufacturers/">Android Enterprise device manufacturers</a>,
+<a href="https://www.android.com/certified/partners/">Android Certified Partners</a>,
+<a href="https://developers.google.com/android/work/oem-resources">Resources for OEMs and carriers</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Hikvision zaten bir OEM adayı olabilir</p>
+<p>Elinizdeki <strong>Hikvision DS-MDT202</strong> üzerinde <code>sys.oem_unlock_allowed=0</code> (kilitli) ve
+bir MediaTek MDM katmanı (<code>com.mediatek.mdmconfig</code>) mevcut. Cihazlarını zaten
+kullandığınız Hikvision'dan <strong>BSP + imza anahtarı + OEM-unlock erişimi</strong> talep etmek,
+sıfırdan başlamaktan çok daha kısa bir OEM ortaklığı yolu olabilir.</p>
+</div>
+<h2 id="63-yol-c-referans-cihaz-ar-ge-ve-dogrulama">6.3 Yol C — Referans cihaz (Ar-Ge ve doğrulama)<a class="headerlink" href="#63-yol-c-referans-cihaz-ar-ge-ve-dogrulama" title="Permanent link">&para;</a></h2>
+<p><strong>Google Pixel.</strong> ROM öğrenmesi, sıkılaştırma provası ve <strong>gerçek relock testi</strong> için tek
+erişilebilir cihaz:</p>
+<ul>
+<li>Vendor blob'ları Google'dan <strong>resmî</strong> indirilir → BSP derdi minimum.</li>
+<li><strong>Custom AVB anahtarıyla relock</strong> ve güçlü secure element (Titan M) destekler.</li>
+<li>Uzun güvenlik desteği (yeni modellerde ~7 yıl).</li>
+<li>GrapheneOS'un neden yalnızca Pixel desteklediğinin sebebi budur (bkz.
+  <a href="../03-sikilastirma/">Bölüm 3</a>).</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Ama ticari ölçekte Pixel sürdürülebilir değil</p>
+<p>Prototip/demo/doğrulama için ideal; ama binlerce cihazlık üretim tedariki için
+uygun değildir. Pixel = <strong>laboratuvar cihazı</strong>, ürün değil.</p>
+</div>
+<h2 id="64-yollarn-karslastrmas">6.4 Yolların karşılaştırması<a class="headerlink" href="#64-yollarn-karslastrmas" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Kriter</th>
+<th>ODM (Rockchip)</th>
+<th>OEM ortaklığı</th>
+<th>Pixel (referans)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hedef ürün</td>
+<td>Signage / gömülü</td>
+<td>Kurumsal telefon</td>
+<td>Ar-Ge / doğrulama</td>
+</tr>
+<tr>
+<td>BSP / sürücü</td>
+<td>ODM verir</td>
+<td>OEM verir</td>
+<td>Google (hazır)</td>
+</tr>
+<tr>
+<td>Bootloader relock</td>
+<td>ODM ile çözülür</td>
+<td>OEM ile (fabrikada)</td>
+<td>✅ (custom key)</td>
+</tr>
+<tr>
+<td>GMS mümkün mü?</td>
+<td>Gerekmez</td>
+<td>✅ (OEM üzerinden)</td>
+<td>Var ama üründe değil</td>
+</tr>
+<tr>
+<td>Marka baskısı</td>
+<td>✅ (beyaz etiket)</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Ölçek/tedarik</td>
+<td>✅ Yüksek</td>
+<td>✅ Yüksek</td>
+<td>❌ Düşük</td>
+</tr>
+<tr>
+<td>İlk yatırım</td>
+<td>Düşük–orta</td>
+<td>Orta–yüksek (NRE)</td>
+<td>En düşük</td>
+</tr>
+<tr>
+<td>Teknik risk</td>
+<td><strong>Düşük</strong></td>
+<td>Orta</td>
+<td>Düşük</td>
+</tr>
+</tbody>
+</table>
+<h2 id="65-sonuc">6.5 Sonuç<a class="headerlink" href="#65-sonuc" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Signage ürünü → ODM (Rockchip).</strong> Sürücü riski yok, marka baskısı var, tedarik hazır.</li>
+<li><strong>Kurumsal telefon → OEM ortaklığı</strong> (muhtemelen Hikvision veya General Mobile tipi).</li>
+<li><strong>Öğrenme/doğrulama → Pixel.</strong></li>
+</ul>
+<p>"Rastgele telefonlara ROM basıp satma" fikri, BSP ve relock kısıtları nedeniyle
+<strong>elenmelidir.</strong></p>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">Bu bölümün kaynakları</p>
+<ul>
+<li><a href="https://emteria.com/blog/aosp-rom">emteria — Building an AOSP ROM (BSP maliyeti)</a></li>
+<li><a href="https://www.sunchip-tech.com/products/rk3568-android-board/">Sunchip — RK3568 Android board</a></li>
+<li><a href="https://aijourn.com/geniatech-introduces-rk3588-quad-display-signage-player/">Geniatech RK3588 signage player</a></li>
+<li><a href="https://www.cnx-software.com/2025/12/05/rikomagic-ds08-rockchip-rk3588-powered-8k-digital-signage-player-with-rtc-and-watchdog/">Rikomagic DS08 (CNX Software)</a></li>
+<li><a href="https://github.com/TinkerBoard-Android/rockchip-android-device-rockchip-rk3588">TinkerBoard RK3588 device repo</a></li>
+<li><a href="https://wiki.friendlyelec.com/wiki/index.php/FriendlyThings_for_Rockchip">FriendlyELEC — FriendlyThings SDK</a></li>
+<li><a href="https://androidenterprisepartners.withgoogle.com/device-manufacturers/">Android Enterprise — Device manufacturers</a></li>
+<li><a href="https://www.android.com/certified/partners/">Android Certified Partners</a></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Başa dön
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Altbilgi" >
+        
+          
+          <a href="../05-lisanslama-gms-edla/" class="md-footer__link md-footer__link--prev" aria-label="Önceki: 5. Lisanslama ve Ticari Engeller (GMS/EDLA)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Önceki
+              </span>
+              <div class="md-ellipsis">
+                5. Lisanslama ve Ticari Engeller (GMS/EDLA)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../07-urun-senaryolari/" class="md-footer__link md-footer__link--next" aria-label="Sonraki: 7. Ürün Senaryoları">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sonraki
+              </span>
+              <div class="md-ellipsis">
+                7. Ürün Senaryoları
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Kopyaland\u0131", "clipboard.copy": "Kopyala", "search.result.more.one": "Bu sayfada 1 tane daha", "search.result.more.other": "Bu sayfada # tane daha", "search.result.none": "E\u015fle\u015fen dok\u00fcman bulunamad\u0131", "search.result.one": "1 dok\u00fcman bulundu", "search.result.other": "# dok\u00fcman bulundu", "search.result.placeholder": "Aramaya ba\u015flamak i\u00e7in yaz\u0131n", "search.result.term.missing": "Eksik", "select.version": "Versiyon se\u00e7"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
